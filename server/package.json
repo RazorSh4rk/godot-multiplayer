@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "node server.js"
+  },
+  "author": "razor",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^7.3.0"
+  }
+}
