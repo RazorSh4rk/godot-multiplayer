@@ -3,6 +3,7 @@ extends Node2D
 var ws = WebSocketClient.new()
 var URL = "ws://localhost:9001/"
 var enemy = preload("res://Enemy.tscn")
+var polling = true
 
 var data = {
 	"x": 0,
@@ -44,6 +45,13 @@ func _on_data():
 func _process(delta):
 	data["x"] = $Player.position.x
 	data["y"] = $Player.position.y
-
 	ws.get_peer(1).put_packet(JSON.print(data).to_utf8())
 	ws.poll()
+
+func _on_Button_pressed():
+	var disconnect_data = {
+		"disconnect": true,
+		"id": data["id"]
+	}
+	ws.disconnect_from_host(1000, str(data["id"]))
+	get_tree().quit()
