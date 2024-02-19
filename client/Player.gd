@@ -1,9 +1,13 @@
 extends CharacterBody2D
 
 @export var speed : int = 200
-@export var id : int = 0
+var id : int = 0
 
 var vel = Vector2()
+
+func _ready():
+	randomize()
+	id = randf_range(0,100)
 
 func get_input():
 	vel = Vector2()

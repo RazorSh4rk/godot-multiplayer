@@ -4,16 +4,18 @@ var ws = WebSocketPeer.new()
 var URL = "ws://localhost:9001/"
 var enemy = preload("res://Enemy.tscn")
 
+@export var ID : String
+
 var data = {
 	"x": 0,
 	"y": 0,
 	"id": 0
 }
 
-var enemies = []
+var enemies : Array[Node] = []
 
 func _ready():
-	data["id"] = str(rand_from_seed(100))
+	data["id"] = $Player.id
 	
 	ws.add_user_signal("connection_closed")
 	ws.add_user_signal("connection_error")
@@ -41,25 +43,31 @@ func _on_data():
 	
 	test_json_conv.parse(ws.get_packet().get_string_from_utf8())
 	var payload = test_json_conv.get_data()
-	for enemy in enemies:
-		enemy.queue_free()
+	
+	for e in enemies:
+		e.queue_free()
 	enemies = []
-	for player in payload:
-		if player.id != data["id"]:
-			var e = enemy.instantiate()
-			e.position = Vector2(player["x"], player["y"])
-			enemies.append(e)
-			add_child(e)
+	if payload:	
+		print(payload[0].id)
+		for player in payload:
+			if int(player.id) != data["id"]:
+				var e = enemy.instantiate()
+				e.position = Vector2(player["x"], player["y"])
+				enemies.append(e)
+				add_child(e)
 
 func _process(delta):
 	data["x"] = $Player.position.x
 	data["y"] = $Player.position.y
 	if(ws.get_ready_state() == ws.STATE_OPEN):
 		ws.put_packet(JSON.stringify(data).to_utf8_buffer())
+		ws.emit_signal("connection_established")
 	else:
 		print("not ready to send data yet")
 	ws.poll()
+	ws.emit_signal("data_received")
 
 func _on_Button_pressed():
 	ws.close()
+	ws.emit_signal("connection_closed")
 	get_tree().quit()
