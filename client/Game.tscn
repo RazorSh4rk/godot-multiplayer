@@ -1,33 +1,31 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://ci0blbjw6fip8"]
 
-[ext_resource path="res://Game.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://Player.gd" type="Script" id=3]
+[ext_resource type="Script" path="res://Game.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://br4pi6dbb641e" path="res://icon.png" id="2"]
+[ext_resource type="Script" path="res://Player.gd" id="3"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32.6584, 32.8265 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(32.6584, 32.8265)
 
 [node name="Game" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
+ID = "abc"
 
-[node name="Player" type="KinematicBody2D" parent="."]
-position = Vector2( 512, 300 )
-script = ExtResource( 3 )
-id = 1
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(512, 300)
+script = ExtResource("3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
-[node name="Sprite" type="Sprite" parent="Player"]
-texture = ExtResource( 2 )
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("2")
 
 [node name="Button" type="Button" parent="."]
-margin_left = 9.47369
-margin_top = 9.47369
-margin_right = 84.4737
-margin_bottom = 35.4737
+offset_left = 9.47369
+offset_top = 9.47369
+offset_right = 84.4737
+offset_bottom = 35.4737
 text = "exit game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

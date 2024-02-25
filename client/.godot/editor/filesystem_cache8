@@ -1,0 +1,9 @@
+2a60927148abd1d33b818b535e306557
+::res://::1708366548
+default_env.tres::Environment::40555437767660332::1708366534::0::1::::<><>::
+Enemy.tscn::PackedScene::-1::1708358907::0::1::::<><>::res://icon.png
+export_presets.cfg::TextFile::-1::1708358831::0::1::::<><>::
+Game.gd::GDScript::-1::1708366500::0::1::::<>Node2D<>::
+Game.tscn::PackedScene::5386041988535477847::1708366534::0::1::::<><>::res://Game.gd<>uid://br4pi6dbb641e<>res://Player.gd
+icon.png::CompressedTexture2D::3640424654556413524::1708358831::1708358920::1::::<><>::
+Player.gd::GDScript::-1::1708363002::0::1::::<>CharacterBody2D<>::

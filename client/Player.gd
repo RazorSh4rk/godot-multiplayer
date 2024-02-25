@@ -1,22 +1,27 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
-export (int) var speed = 200
-export (int) var id = 0
+@export var speed : int = 200
+var id : int = 0
 
-var velocity = Vector2()
+var vel = Vector2()
+
+func _ready():
+	randomize()
+	id = randf_range(0,100)
 
 func get_input():
-	velocity = Vector2()
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
-	if Input.is_action_pressed('ui_left'):
-		velocity.x -= 1
-	if Input.is_action_pressed('ui_down'):
-		velocity.y += 1
-	if Input.is_action_pressed('ui_up'):
-		velocity.y -= 1
-	velocity = velocity.normalized() * speed
+	vel = Vector2()
+	if Input.is_action_pressed("right"):
+		vel.x += 1
+	if Input.is_action_pressed('left'):
+		vel.x -= 1
+	if Input.is_action_pressed('down'):
+		vel.y += 1
+	if Input.is_action_pressed('up'):
+		vel.y -= 1
+	vel = vel.normalized() * speed
 
 func _physics_process(delta):
 	get_input()
-	velocity = move_and_slide(velocity)
+	set_velocity(vel)
+	move_and_slide()
